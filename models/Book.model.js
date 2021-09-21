@@ -1,13 +1,14 @@
 "use strict"
 const mongoose = require("mongoose");
+const userModel = require("./User.model")
 
 
 
 const bookSchema =new mongoose.Schema({
   title: String,
   descriptions: String,
-  status: Boolean,
-  email:String
+  status: String,
+  userEmail:String
 
 });
 
@@ -15,12 +16,20 @@ const bookSchema =new mongoose.Schema({
 
 const bookModel = mongoose.model('book',bookSchema);
 
+     
+
     let  seedBook=()=>{
+        let user = new userModel({
+            username :'Samohas',
+            email:"adsfasdfasdf@gmail.com"   
+          })
+    
+          user.save();
         let book1 =  new bookModel({
             title :'Clean code',
             descriptions:'this book about how to make your code clean and stander to be redable and maintainalbe',
             status:true,
-            email:'assdfasdfgmail.com'
+            userEmail:user.email
         });
         book1.save();
        
@@ -28,24 +37,17 @@ const bookModel = mongoose.model('book',bookSchema);
             title :'Javascript',
             descriptions:'this book about javascript ',
             status:true,
-            email:'assdfasdfgmail.com'
+            userEmail:user.email
         });
         book2.save();
        let book3 =  new bookModel({
             title :'python',
             descriptions:'this book about python ',
             status:false,
-            email:'assdfasdfgmail.com'
+            userEmail:user.email
         });
         book3.save();
     }
-
-
-
-
-
-
-
 module.exports={
     seedBook
     ,
