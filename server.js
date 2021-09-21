@@ -11,7 +11,7 @@ const {gitAllBookController
     ,deleteBookController
 }= require('./controllers/Book.controller');
 const PORT = process.env.PORT;
-const MONGO_SERVER = process.env.MONGO_SERVER;
+const MONGO_SERVER_ATLAS_URL = process.env.MONGO_SERVER_ATLAS_URL;
 /*const {seedbook} = require('./models/Book.model');
 
 app.get('/',(req,res)=>{
@@ -33,7 +33,7 @@ app.delete('/delete-book/:id',deleteBookController);
 
 
 // dataBase connection
-mongoose.connect(`${MONGO_SERVER}/bookstore`
+mongoose.connect(`${MONGO_SERVER_ATLAS_URL}`
 ,{useNewUrlParser:true});
 
 app.listen(PORT,()=>{
