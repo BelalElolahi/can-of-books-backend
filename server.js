@@ -9,9 +9,10 @@ app.use(cors());
 const {gitAllBookController
     , CreateBookController
     ,deleteBookController
+    , updateBookController
 }= require('./controllers/Book.controller');
 const PORT = process.env.PORT;
-const MONGO_SERVER_ATLAS_URL = process.env.MONGO_SERVER_ATLAS_URL;
+const MONGO_SERVER_URL = process.env.MONGO_SERVER_ATLAS_URL;
 /*const {seedbook} = require('./models/Book.model');
 
 app.get('/',(req,res)=>{
@@ -23,20 +24,20 @@ app.get('/',(req,res)=>{
 app.use(express.json());
 
 
-
-app.get('/',gitAllBookController);
+app.get('/books',gitAllBookController);
 
 app.post('/create-book',CreateBookController);
 
 app.delete('/delete-book/:id',deleteBookController);
 
+app.put('/update-book/:id',updateBookController)
+
 
 
 // dataBase connection
-mongoose.connect(`${MONGO_SERVER_ATLAS_URL}`
+mongoose.connect(`${MONGO_SERVER_URL}`
 ,{useNewUrlParser:true});
 
-app.listen(PORT,()=>{
-
+app.listen(PORT,()=>{ 
     console.log("Listen "+ PORT);
 });

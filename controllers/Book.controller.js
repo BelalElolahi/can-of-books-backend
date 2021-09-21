@@ -5,6 +5,8 @@ const {bookModel} = require('../models/Book.model');
 
 
 
+
+//Git All Books  
 let gitAllBookController = async (req,res)=>{
    
     try {
@@ -18,7 +20,7 @@ let gitAllBookController = async (req,res)=>{
     }
     
 }
-
+// Create Book
 const CreateBookController= async (req,res)=>{
       
     let Book = new bookModel ({
@@ -37,12 +39,8 @@ const CreateBookController= async (req,res)=>{
 
     }
 }
-
-
-
+// delete book
 const deleteBookController = async (req,res)=>{
-       
-   
     try {
      await bookModel.findByIdAndDelete(req.params.id);
       
@@ -55,30 +53,29 @@ const deleteBookController = async (req,res)=>{
         res.status(500).json({message : err.message});
         
     }
+}
 
-     /*try {
-     await res.rem
+//update book
+const  updateBookController = async (req , res )=>
+{
+    let updateBook = await bookModel.findById(req.params.id)
+    console.log(updateBook);
+    updateBook.title=req.body.title;
+    updateBook.descriptions = req.body.descriptions;
+    updateBook.status = req.body.status;
+    updateBook.email=req.body.email;
 
-     } catch {
-
-     }*/
      
-    /*bookModel.findByIdAndDelete(id,(err,data)=>{
-         if (err)
-        {
-            res.status(500).send("an error occured");
+    
+    try{
+         await updateBook.save();
+         let books = await bookModel.find({});
+         res.status(201).json(books);
+                
+     }catch(err){
+        res.status(400).json({message : err.message});
 
-         } else 
-         {
-             bookModel.find({}).then(books=>{
-                 res.json(books);
-             })
-         }
-         
-
-    })*/
-
-
+     }
 }
 
 
@@ -88,5 +85,6 @@ module.exports=
 {
     gitAllBookController,
     CreateBookController,
-    deleteBookController
+    deleteBookController,
+    updateBookController
 }
